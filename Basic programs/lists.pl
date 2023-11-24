@@ -1,3 +1,4 @@
+% Checks if an element is part of a set (list)
 memberOf(X, [X|T]).
 memberOf(X, [H|T]):-
          memberOf(X, T).
@@ -7,17 +8,13 @@ concatenationLists([], L, L).
 concatenationLists([X|L1],L2,[X|L3]):-
     concatenationLists(L1, L2, L3).
 
+% Returns a list's size
 listSize([],0).
-% Head is always a single element
-% Tail is a set of elements
-% e.g.
-% {1,2,3,4,5,6} H:1 T:2,3,4,5,6
-% {2,3,4,5,6} H:2 T:3,4,5,6
-
 listSize([H|T],S):-
     listSize(T,S1),
     S is S1 + 1.
 
+% Deletes ocurrences
 compress([],[]).
 compress([X],[X]).
 compress([X,X|Xs],S):-
@@ -25,3 +22,12 @@ compress([X,X|Xs],S):-
 compress([X,Y|Ys],[X|S]):-
     X \= Y,
     compress([Y|Ys],S).
+
+% Series of a factorial (returns a list with the series)
+factorialSeries(0,[1]).
+factorialSeries(X,L):-
+    X>0,
+    X1 is X-1,
+    factorialSeries(X1,[H|T]),
+    FactorialX is X*H,
+    L = [FactorialX|[H|T]].
